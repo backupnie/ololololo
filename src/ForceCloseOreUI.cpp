@@ -28,19 +28,8 @@ public:
     std::unordered_map<std::string, OreUIConfig> mConfigs;
 };
 
-// --- Dynamically detect package name without JNI ---
-std::string getPackageName() {
-    std::ifstream cmdline("/proc/self/cmdline");
-    std::string pkgName;
-    if (std::getline(cmdline, pkgName, '\0') && !pkgName.empty()) {
-        return pkgName;
-    }
-    return "com.mojang.minecraftpe"; 
-}
-
 std::string getConfigDir() {
-    std::string pkgName = getPackageName();
-    std::string primary = "/sdcard/Android/data/" + pkgName + "/files/mods/ForceCloseOreUI/";
+    std::string primary = "/sdcard/games/ForceCloseOreUI/";
     std::error_code ec;
     fs::create_directories(primary, ec); 
     return primary;
